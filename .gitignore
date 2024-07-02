@@ -1,0 +1,8 @@
+#intellij IDEA
+.idea
+
+#Database
+db.sqlite3
+
+#django-migrations
+migrations
