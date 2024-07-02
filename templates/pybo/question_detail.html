@@ -4,3 +4,9 @@
     <p>{{ question_content }}</p>
     <h5>생성시각 : {{ question_created_at }}</h5>
 {% endif %}
+
+<form action="{% url 'pybo:answer_create' question_id  %}" method="post">
+    {% csrf_token %} {# 실제로 웹 브라우저에서 작성된 form인지 확인하는 보안관련 코드 #}
+    <textarea name="content" id="content" rows="15"></textarea>
+    <input type="submit" value="답변 등록">
+</form>
