@@ -1,0 +1,6 @@
+{% if question_subject %}
+    <h1>제목 : {{ question_subject }}</h1>
+    <h3>내용</h3>
+    <p>{{ question_content }}</p>
+    <h5>생성시각 : {{ question_created_at }}</h5>
+{% endif %}
