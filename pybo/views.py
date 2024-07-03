@@ -23,3 +23,10 @@ def answer_create(request, question_id):
     answer = Answer(question=question, content=request.POST.get('content'))
     answer.save()
     return redirect('pybo:detail', question_id=question_id)
+
+def question_create(request):
+    subject = request.POST.get('subject')
+    content = request.POST.get('content')
+    question = Question(subject=subject, content=content)
+    question.save()
+    return redirect('pybo:index')
