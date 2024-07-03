@@ -1,12 +1,21 @@
-{% if question_subject %}
-    <h1>제목 : {{ question_subject }}</h1>
+{% load static %}
+<link rel="stylesheet" href="{% static 'style.css' %}" type="text/css">
+{% if question.subject %}
+    <h1>제목 : {{ question.subject }}</h1>
     <h3>내용</h3>
-    <p>{{ question_content }}</p>
-    <h5>생성시각 : {{ question_created_at }}</h5>
+    <p>{{ question.content }}</p>
+    <h5>생성시각 : {{ question.created_at }}</h5>
+    <h5>등록된 답변 리스트({{ question.answers.count }}개)</h5>
+    <ul>
+        {% for answer in question.answers.all %}
+        	<li>{{ answer.content }}</li>
+        {% endfor %}
+    </ul>
 {% endif %}
 
-<form action="{% url 'pybo:answer_create' question_id  %}" method="post">
+<form action="{% url 'pybo:answer_create' question.id  %}" method="post">
     {% csrf_token %} {# 실제로 웹 브라우저에서 작성된 form인지 확인하는 보안관련 코드 #}
     <textarea name="content" id="content" rows="15"></textarea>
+    <br>
     <input type="submit" value="답변 등록">
 </form>

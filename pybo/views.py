@@ -1,6 +1,6 @@
-from django.shortcuts import render, get_object_or_404
+from django.shortcuts import render, get_object_or_404, redirect
 
-from .models import Question
+from .models import Question, Answer
 
 
 def index(request):
@@ -14,13 +14,12 @@ def index(request):
 def detail(request, question_id):
     question = get_object_or_404(Question, pk=question_id)
     context = {
-        "question_subject": question.subject,
-        "question_content": question.content,
-        "question_created_at": question.created_at,
-        "question_id": question_id,
+        "question": question,
     }
     return render(request, "pybo/question_detail.html", context)
 
 def answer_create(request, question_id):
     question = get_object_or_404(Question, pk=question_id)
-    question.answers.create(content=request.POST['content'])
+    answer = Answer(question=question, content=request.POST.get('content'))
+    answer.save()
+    return redirect('pybo:detail', question_id=question_id)
