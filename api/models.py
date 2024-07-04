@@ -9,7 +9,7 @@ class Professor(models.Model):
         return self.name
 
 class Student(models.Model):
-    professor = models.ForeignKey(Professor, on_delete=models.CASCADE, related_name='students')
+    professor = models.ForeignKey(Professor, on_delete=models.CASCADE, null=False, blank=False, related_name='students')
     name = models.CharField(max_length=50)
     age = models.IntegerField()
     def __str__(self):
